@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (empty($nombre) || empty($correo) || empty($contraseña)) {
         $mensaje = "<p class='error'>Por favor, completa todos los campos obligatorios.</p>";
     } else {
-        // Verificar si el correo ya existe
+        
         $verificar = $conexion->prepare("SELECT id FROM usuarios WHERE correo = ?");
         $verificar->bind_param("s", $correo);
         $verificar->execute();
@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         if ($verificar->num_rows > 0) {
             $mensaje = "<p class='error'>El correo ya está registrado.</p>";
         } else {
-            // Insertar nuevo usuario
+            
             $stmt = $conexion->prepare("INSERT INTO usuarios (nombre, apellido, correo, contraseña) VALUES (?, ?, ?, ?)");
             $stmt->bind_param("ssss", $nombre, $apellido, $correo, $contraseña);
             if ($stmt->execute()) {
