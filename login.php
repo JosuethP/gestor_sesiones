@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $resultado = $stmt->get_result();
 
     if ($fila = $resultado->fetch_assoc()) {
-        if ($contraseña === $fila['contraseña']) {
+        if (password_verify($contraseña, $fila['contraseña'])) {
             $_SESSION['usuario_id'] = $fila['id'];
             $_SESSION['usuario_nombre'] = $fila['nombre'];
             header("Location: html/index.php");
